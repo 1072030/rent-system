@@ -4,7 +4,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "beaconSetting",
-    component: () => import("../views/beaconSetting/index.vue"),
+    component: () => import("../view/inputData.vue"),
   },
 ];
 
