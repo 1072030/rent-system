@@ -1,28 +1,35 @@
 <template>
-  <div>
-    <van-cell title="选择单个日期" :value="date" @click="show = true" />
-    <van-calendar v-model="show" @click="onConfirm" />
-  </div>
+  <van-calendar
+    class="calendar"
+    v-model:show="show"
+    title="日期"
+    @confirm="onConfirm"
+    :round="false"
+    first-day-of-week="1"
+    :poppable="false"
+    :show-confirm="false"
+    :style="{ height: '500px' }"
+  />
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup() {
-    const show = ref(false);
     const date = ref("");
-    const onConfirm = (select: Date) => {
+    const show = ref(false);
+
+    const formatDate = (date: any) =>
+      `${date.getMonth() + 1}/${date.getDate()}`;
+    const onConfirm = (value: any) => {
       show.value = false;
-      date.value = formatDate(select);
+      date.value = formatDate(value);
     };
-    const formatDate = (date: Date) => {
-      return `${date.getMonth() + 1}/${date.getDate()}`;
-    };
+
     return {
-      onConfirm,
-      formatDate,
-      show,
       date,
+      show,
+      onConfirm,
     };
   },
 });
