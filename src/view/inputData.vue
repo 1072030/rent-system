@@ -1,13 +1,29 @@
 <template>
-  <van-cell title="选择单个日期" :value="date" @click="show = true" />
-  <van-calendar v-model="show" @confirm="onConfirm" />
+  <div>
+    <van-cell title="选择单个日期" :value="date" @click="show = true" />
+    <van-calendar v-model="show" @click="onConfirm" />
+  </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup() {
-    console.log("show");
+    const show = ref(false);
+    const date = ref("");
+    const onConfirm = (select: Date) => {
+      show.value = false;
+      date.value = formatDate(select);
+    };
+    const formatDate = (date: Date) => {
+      return `${date.getMonth() + 1}/${date.getDate()}`;
+    };
+    return {
+      onConfirm,
+      formatDate,
+      show,
+      date,
+    };
   },
 });
 </script>
