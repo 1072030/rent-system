@@ -6,6 +6,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "beaconSetting",
     component: () => import("../view/inputData.vue"),
   },
+  {
+    path: "/reserve",
+    name: "My Names",
+    component: () => import("../view/information.vue"),
+  },
 ];
 
 const router = createRouter({
