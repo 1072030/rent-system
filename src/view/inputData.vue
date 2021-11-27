@@ -21,7 +21,7 @@
     <div>
       <ul v-for="(data, index) in session" :key="index" class="table">
         <li>{{ data.text }}</li>
-        <van-button type="primary" :disabled="data.isReserve"
+        <van-button type="primary" :disabled="data.isReserve" to="reserve"
           >立即預約</van-button
         >
       </ul>
@@ -34,6 +34,9 @@ export default defineComponent({
   setup() {
     const maxDate = ref(new Date());
     maxDate.value.setDate(maxDate.value.getDate() + 14);
+    // onMounted(()=>{  //事先請求api 確定預約日期
+
+    // })
     const session = ref([
       {
         value: 1,
