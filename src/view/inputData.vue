@@ -21,7 +21,11 @@
     <div>
       <ul v-for="(data, index) in session" :key="index" class="table">
         <li>{{ data.text }}</li>
-        <van-button type="primary" :disabled="data.isReserve" to="reserve"
+        <van-button
+          type="primary"
+          :disabled="data.isReserve"
+          @click="sendData(index)"
+          to="reserve"
           >立即預約</van-button
         >
       </ul>
@@ -67,14 +71,17 @@ export default defineComponent({
     const date = ref("");
     const show = ref(false);
     const dialog = ref(false);
-
+    const sendData = (index: any) => {
+      console.log(date.value);
+      console.log(session.value[index]);
+    };
     const onselect = (value: Date) => {
       show.value = false;
       dialog.value = true;
       date.value = formatDate(value);
     };
     const formatDate = (date: Date) => {
-      return `${date.getMonth() + 1}/${date.getDate()}`;
+      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
     };
 
     return {
@@ -84,6 +91,7 @@ export default defineComponent({
       date,
       show,
       onselect,
+      sendData,
     };
   },
 });
