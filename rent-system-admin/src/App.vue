@@ -1,11 +1,20 @@
 <template>
-  <router-view />
+  <router-view @setDate="setDate" v-model:Info="Info" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
-  components: {},
+  setup() {
+    const Info = ref({});
+    const setDate = (value: any) => {
+      Info.value = value;
+    };
+    return {
+      Info,
+      setDate,
+    };
+  },
 });
 </script>
 

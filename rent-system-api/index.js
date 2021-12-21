@@ -10,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/session", (req, res) => {
+  console.log(req.params);
+});
 // listen on port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

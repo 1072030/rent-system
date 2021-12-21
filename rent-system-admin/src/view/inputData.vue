@@ -29,18 +29,35 @@
           >立即預約</van-button
         >
       </ul>
+      <!--  to="reserve"x -->
     </div>
   </van-dialog>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+
 export default defineComponent({
-  setup() {
+  props: {
+    Info: Object,
+  },
+  emits: ["setDate"],
+  setup(props, context) {
     const maxDate = ref(new Date());
     maxDate.value.setDate(maxDate.value.getDate() + 14);
-    // onMounted(()=>{  //事先請求api 確定預約日期
-
-    // })
+    // onMounted(() => {
+    //   //事先請求api 確定預約日期
+    //   let DataInfo = [];
+    //   const i = new Date();
+    //   let date = i.getDate();
+    //   console.log(i.getDate());
+    //   for (let j = 0; j < 14; j++) {
+    //     for (let k = 0; k < 5; k++) {
+    //       DataInfo.push({
+    //         date:date,
+    //       });
+    //     }
+    //   }
+    // });
     const session = ref([
       {
         value: 1,
@@ -72,13 +89,35 @@ export default defineComponent({
     const show = ref(false);
     const dialog = ref(false);
     const sendData = (index: any) => {
-      console.log(date.value);
-      console.log(session.value[index]);
+      // console.log(date.value);
+      // console.log(session.value[index]);
+      let content = Object.assign({
+        date: date.value,
+        session: session.value[index].value,
+        title: session.value[index].text,
+        isReserve: session.value[index].isReserve,
+      });
+      context.emit("setDate", content);
     };
     const onselect = (value: Date) => {
       show.value = false;
       dialog.value = true;
+      console.log(value);
       date.value = formatDate(value);
+      console.log(date.value);
+
+      // fetch("", {
+      //   method: "GET",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      // })
+      //   .then((res) => {
+      //     return res.json();
+      //   })
+      //   .then((result) => {
+      //     console.log(result);
+      //   });
     };
     const formatDate = (date: Date) => {
       return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
